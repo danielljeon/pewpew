@@ -60,7 +60,7 @@ def fit_pewpew():
 
     print("\n##### Arduino function (copy-paste) #####\n")
     print("float y_from_x(float x) {")
-    print("    // Polynomial approximation generated from Python")
+    print("    // Polynomial approximation generated from Python.")
     print("    float y = ", end="")
 
     # Format nicely for C++.
