@@ -6,22 +6,21 @@ def fit_pewpew():
     print("##### Curve Fitting #####")
     print("Modelling: y = f(x)")
 
-    print("\nHow many data points:")
-    n = int(input("> "))
+    # --- Load data from CSV ---
+    print("\nEnter CSV file path (e.g., data.csv):")
+    csv_path = input("> ").strip()
 
-    xs = []
-    ys = []
+    print("\nDoes the CSV have a header row? (y/n)")
+    has_header = input("> ").strip().lower().startswith("y")
 
-    print("\nEnter data as: x y")
-    print("Example: projectile_cm angle_deg")
-    for i in range(n):
-        line = input(f"Point {i + 1}: ")
-        a_str, d_str = line.split()
-        xs.append(float(a_str))
-        ys.append(float(d_str))
+    # Assumes first column is x, second column is y.
+    skip = 1 if has_header else 0
+    data = np.loadtxt(csv_path, delimiter=",", skiprows=skip)
 
-    xs = np.array(xs, dtype=float)
-    ys = np.array(ys, dtype=float)
+    xs = data[:, 0].astype(float)
+    ys = data[:, 1].astype(float)
+
+    print(f"\nLoaded {len(xs)} data points from {csv_path}")
 
     degree = int(input("\nPolynomial degree (1-3 recommended): "))
 
@@ -30,7 +29,6 @@ def fit_pewpew():
     poly = np.poly1d(coeffs)
 
     # Plot.
-    # Create smooth range for curve.
     x_curve = np.linspace(xs.min(), xs.max(), 300)
     y_curve = poly(x_curve)
     plt.scatter(xs, ys, color="red", label="Data Points")
@@ -48,7 +46,7 @@ def fit_pewpew():
         power = degree - i
         print(f"  a_{power} = {c:.8f}")
 
-    print("\nPolynomial form (y in meters):")
+    print("\nPolynomial form (y):")
     terms = []
     for i, c in enumerate(coeffs):
         p = degree - i
