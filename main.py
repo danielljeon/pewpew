@@ -4,40 +4,40 @@ import numpy as np
 
 def fit_pewpew():
     print("##### Curve Fitting #####")
-    print("Modelling: distance_m = f(variable)")
+    print("Modelling: y = f(x)")
 
     print("\nHow many data points:")
     n = int(input("> "))
 
-    variables = []
-    distances = []
+    xs = []
+    ys = []
 
-    print("\nEnter data as: variable distance_m")
+    print("\nEnter data as: x y")
     print("Example: 30 5.2")
     for i in range(n):
         line = input(f"Point {i + 1}: ")
         a_str, d_str = line.split()
-        variables.append(float(a_str))
-        distances.append(float(d_str))
+        xs.append(float(a_str))
+        ys.append(float(d_str))
 
-    variables = np.array(variables, dtype=float)
-    distances = np.array(distances, dtype=float)
+    xs = np.array(xs, dtype=float)
+    ys = np.array(ys, dtype=float)
 
     degree = int(input("\nPolynomial degree (1-3 recommended): "))
 
-    # Fit polynomial: distances = p(variables).
-    coeffs = np.polyfit(variables, distances, degree)
+    # Fit polynomial: ys = p(xs).
+    coeffs = np.polyfit(xs, ys, degree)
     poly = np.poly1d(coeffs)
 
     # Plot.
     # Create smooth range for curve.
-    x_curve = np.linspace(variables.min(), variables.max(), 300)
+    x_curve = np.linspace(xs.min(), xs.max(), 300)
     y_curve = poly(x_curve)
-    plt.scatter(variables, distances, color="red", label="Data Points")
+    plt.scatter(xs, ys, color="red", label="Data Points")
     plt.plot(x_curve, y_curve, color="blue", label=f"Polynomial (deg={degree})")
-    plt.xlabel("Variable")
-    plt.ylabel("Distance (m)")
-    plt.title("Curve Fit: distance_m = f(variable)")
+    plt.xlabel("x")
+    plt.ylabel("y (m)")
+    plt.title("Curve Fit: y = f(x)")
     plt.legend()
     plt.grid(True)
     plt.show()
@@ -48,22 +48,22 @@ def fit_pewpew():
         power = degree - i
         print(f"  a_{power} = {c:.8f}")
 
-    print("\nPolynomial form (distance in meters):")
+    print("\nPolynomial form (y in meters):")
     terms = []
     for i, c in enumerate(coeffs):
         p = degree - i
         if p == 0:
             terms.append(f"{c:.8f}")
         elif p == 1:
-            terms.append(f"{c:.8f} * variable")
+            terms.append(f"{c:.8f} * x")
         else:
-            terms.append(f"{c:.8f} * pow(variable, {p})")
-    print("  distance_m ~= " + " + ".join(terms))
+            terms.append(f"{c:.8f} * pow(x, {p})")
+    print("  y ~= " + " + ".join(terms))
 
     print("\n##### Arduino function (copy-paste) #####\n")
-    print("float distance_from_variable(float variable) {")
+    print("float y_from_x(float x) {")
     print("    // Polynomial approximation generated from Python")
-    print("    // distance_m = ", end="")
+    print("    float y = ", end="")
 
     # Format nicely for C++.
     expr_terms = []
@@ -72,17 +72,18 @@ def fit_pewpew():
         if p == 0:
             expr_terms.append(f"{c:.8f}f")
         elif p == 1:
-            expr_terms.append(f"{c:.8f}f * variable")
+            expr_terms.append(f"{c:.8f}f * x")
         elif p == 2:
-            expr_terms.append(f"{c:.8f}f * variable * variable")
+            expr_terms.append(f"{c:.8f}f * x * x")
         elif p == 3:
-            expr_terms.append(f"{c:.8f}f * variable * variable * variable")
+            expr_terms.append(f"{c:.8f}f * x * x * x")
         else:
-            expr_terms.append(f"{c:.8f}f * pow(variable, {p})")
+            expr_terms.append(f"{c:.8f}f * pow(x, {p})")
 
     print(" + ".join(expr_terms) + ";")
+    print("    return y;")
     print("}")
-    print("\n// Call distance_from_variable(variable).")
+    print("\n// Call y_from_x(x).")
 
 
 if __name__ == "__main__":
