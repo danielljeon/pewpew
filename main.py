@@ -36,7 +36,7 @@ def fit_pewpew():
     plt.scatter(xs, ys, color="red", label="Data Points")
     plt.plot(x_curve, y_curve, color="blue", label=f"Polynomial (deg={degree})")
     plt.xlabel("x")
-    plt.ylabel("y (m)")
+    plt.ylabel("y")
     plt.title("Curve Fit: y = f(x)")
     plt.legend()
     plt.grid(True)
