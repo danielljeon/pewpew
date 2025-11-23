@@ -10,10 +10,10 @@
   * [1 Overview](#1-overview)
     * [1.1 Bill of Materials (BOM)](#11-bill-of-materials-bom)
     * [1.2 Block Diagram](#12-block-diagram)
+  * [2 Python Code](#2-python-code)
 <!-- TOC -->
 
 </details>
-
 
 ---
 
@@ -33,3 +33,9 @@
 ![pewpew.drawio.png](docs/pewpew.drawio.png)
 
 > Drawio file here: [pewpew.drawio](docs/pewpew.drawio).
+
+---
+
+## 2 Python Code
+
+![curve_fit.png](docs/curve_fit.png)
