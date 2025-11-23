@@ -13,7 +13,7 @@ def fit_pewpew():
     ys = []
 
     print("\nEnter data as: x y")
-    print("Example: 30 5.2")
+    print("Example: projectile_cm angle_deg")
     for i in range(n):
         line = input(f"Point {i + 1}: ")
         a_str, d_str = line.split()
