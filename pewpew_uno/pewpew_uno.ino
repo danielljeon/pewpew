@@ -4,7 +4,8 @@
 
 #include <Servo.h>
 
-Servo myServo;  // Servo object.
+Servo myServo;       // Aiming servo.
+Servo triggerServo;  // Trigger servo.
 
 // HC-SR04 pins.
 const int TRIG_PIN = 2;
@@ -90,14 +91,26 @@ void move_to_target(float distance_cm) {
   myServo.write(angle_deg);
 }
 
+void fire_now() {
+  Serial.println("FIRE!");
+
+  triggerServo.write(90);  // Move to "fire" position.
+  delay(300);
+  triggerServo.write(0);   // Return to "ready" position.
+}
+
 void setup() {
   Serial.begin(9600);
-  myServo.attach(9);  // Servo signal wire pin 9.
+  myServo.attach(9);        // Aiming servo on pin 9.
+  triggerServo.attach(10);  // Trigger servo on pin 10.
+
+  // Start trigger in safe/ready position.
+  triggerServo.write(0);
 
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
 
-  // Optionally pre-fill the buffer with initial readings.
+  // Pre-fill the buffer with initial readings.
   for (int i = 0; i < MEDIAN_WINDOW; i++) {
     distanceBuffer[i] = read_ultrasonic_cm();
     bufferCount++;
@@ -107,5 +120,10 @@ void setup() {
 void loop() {
   float distance_cm = get_filtered_distance_cm();
   move_to_target(distance_cm);
-  delay(200);  // Small delay between updates.
+
+  // Fire on button press.
+  // TODO: Still work in progress.
+  fire_now();
+
+  delay(1000);  // Delay between cycles.
 }
