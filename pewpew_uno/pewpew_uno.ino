@@ -94,9 +94,9 @@ void move_to_target(float distance_cm) {
 void fire_now() {
   Serial.println("FIRE!");
 
-  triggerServo.write(90);  // Move to "fire" position.
-  delay(300);
-  triggerServo.write(0);   // Return to "ready" position.
+  triggerServo.write(0);  // Move to "fire" position.
+  delay(700);
+  triggerServo.write(60);  // Return to "ready" position.
 }
 
 void setup() {
@@ -119,6 +119,15 @@ void setup() {
 
 void loop() {
   float distance_cm = get_filtered_distance_cm();
+
+  // Reset/load.
+  triggerServo.write(0);
+  delay(700);
+  myServo.write(180);
+  delay(700);
+  triggerServo.write(60);
+
+  // Move to the target angle.
   move_to_target(distance_cm);
 
   // Fire on button press.
