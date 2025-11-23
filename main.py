@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -26,6 +27,20 @@ def fit_pewpew():
 
     # Fit polynomial: distances = p(variables).
     coeffs = np.polyfit(variables, distances, degree)
+    poly = np.poly1d(coeffs)
+
+    # Plot.
+    # Create smooth range for curve.
+    x_curve = np.linspace(variables.min(), variables.max(), 300)
+    y_curve = poly(x_curve)
+    plt.scatter(variables, distances, color="red", label="Data Points")
+    plt.plot(x_curve, y_curve, color="blue", label=f"Polynomial (deg={degree})")
+    plt.xlabel("Variable")
+    plt.ylabel("Distance (m)")
+    plt.title("Curve Fit: distance_m = f(variable)")
+    plt.legend()
+    plt.grid(True)
+    plt.show()
 
     # coeffs is [c_deg, ..., c2, c1, c0] (highest degree first).
     print("\nFitted coefficients (highest power first):")
