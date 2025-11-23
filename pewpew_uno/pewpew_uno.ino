@@ -121,14 +121,17 @@ void loop() {
   // TODO: Jank fix, fake settling.
   distance_cm = get_filtered_distance_cm();
   distance_cm = get_filtered_distance_cm();
+  distance_cm = get_filtered_distance_cm();
+  distance_cm = get_filtered_distance_cm();
+  distance_cm *= 1.1;
 
   // Reset/load.
   triggerServo.write(0);
-  delay(1000);
+  delay(500);
   myServo.write(160);
-  delay(1000);
+  delay(500);
   triggerServo.write(60);
-  delay(1000);
+  delay(500);
 
   // Move to the target angle.
   move_to_target(distance_cm);
@@ -141,5 +144,5 @@ void loop() {
   // TODO: Still work in progress.
   fire_now();
 
-  delay(10000);  // Delay between cycles.
+  delay(1000);  // Delay between cycles.
 }
