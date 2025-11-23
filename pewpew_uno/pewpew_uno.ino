@@ -20,7 +20,7 @@ int bufferCount = 0;
 // Example curve fit solution.
 float y_from_x(float x) {
   // Polynomial approximation generated from Python.
-  float y = -0.00002389f * x * x * x + 0.00095641f * x * x + -0.54626373f * x + 97.09920332f;
+  float y = 0.00000697f * x * x * x + -0.00175929f * x * x + -0.25669064f * x + 74.57740974f;
   return y;
 }
 
@@ -96,7 +96,6 @@ void fire_now() {
 
   triggerServo.write(0);  // Move to "fire" position.
   delay(700);
-  triggerServo.write(60);  // Return to "ready" position.
 }
 
 void setup() {
@@ -119,20 +118,28 @@ void setup() {
 
 void loop() {
   float distance_cm = get_filtered_distance_cm();
+  // TODO: Jank fix, fake settling.
+  distance_cm = get_filtered_distance_cm();
+  distance_cm = get_filtered_distance_cm();
 
   // Reset/load.
   triggerServo.write(0);
-  delay(700);
-  myServo.write(180);
-  delay(700);
+  delay(1000);
+  myServo.write(160);
+  delay(1000);
   triggerServo.write(60);
+  delay(1000);
 
   // Move to the target angle.
   move_to_target(distance_cm);
+
+  // Fire delay.
+  Serial.println("FIRING IN 3!");
+  delay(3000);
 
   // Fire on button press.
   // TODO: Still work in progress.
   fire_now();
 
-  delay(1000);  // Delay between cycles.
+  delay(10000);  // Delay between cycles.
 }
