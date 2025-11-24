@@ -15,6 +15,7 @@ Automatic ranging catapult for university competition (software and firmware).
   * [1 Overview](#1-overview)
     * [1.1 Bill of Materials (BOM)](#11-bill-of-materials-bom)
     * [1.2 Block Diagram](#12-block-diagram)
+    * [1.3 Pin Configurations](#13-pin-configurations)
   * [2 Python Code](#2-python-code)
   * [3 Arduino Code](#3-arduino-code)
 <!-- TOC -->
@@ -24,6 +25,10 @@ Automatic ranging catapult for university competition (software and firmware).
 ---
 
 ## 1 Overview
+
+![demo.gif](docs/demo.gif)
+
+- "Good enough" accuracy... lol.
 
 ### 1.1 Bill of Materials (BOM)
 
@@ -39,6 +44,24 @@ Automatic ranging catapult for university competition (software and firmware).
 ![pewpew.drawio.png](docs/pewpew.drawio.png)
 
 > Drawio file here: [pewpew.drawio](docs/pewpew.drawio).
+
+### 1.3 Pin Configurations
+
+<details markdown="1">
+  <summary>Pin & Peripherals Table</summary>
+
+| Arduino Uno | Peripheral    | Config | Connection                | Notes |
+|-------------|---------------|--------|---------------------------|-------|
+| D2          | `GPIO OUTPUT` |        | HC-SR04: `TRIG`           |       |
+| D3          | `GPIO INPUT`  |        | HC-SR04: `ECHO`           |       |
+| D9          | `PWM Output`  |        | Servo 1 of 2: `PWM Input` |       |
+| D10         | `PWM Output`  |        | Servo 2 of 2: `PWM Input` |       |
+| ???         | `GPIO INPUT`  |        | Push button               |       |
+
+> Note: The push button was not implemented, the code would execute
+> continuously.
+
+</details>
 
 ---
 
