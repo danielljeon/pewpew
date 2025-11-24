@@ -32,9 +32,14 @@ def fit_pewpew():
     x_curve = np.linspace(xs.min(), xs.max(), 300)
     y_curve = poly(x_curve)
     plt.scatter(xs, ys, color="red", label="Data Points")
-    plt.plot(x_curve, y_curve, color="blue", label=f"Polynomial (deg={degree})")
-    plt.xlabel("x_target_distance (cm)")
-    plt.ylabel("y_servo_angle (deg)")
+    plt.plot(
+        x_curve,
+        y_curve,
+        color="blue",
+        label=f"Polynomial (deg={degree})",
+    )
+    plt.xlabel("x_target_distance (cm)")  # TODO: Specific to `data.csv`.
+    plt.ylabel("y_servo_angle (deg)")  # TODO: Specific to `data.csv`.
     plt.title("Curve Fit: y = f(x)")
     plt.legend()
     plt.grid(True)
