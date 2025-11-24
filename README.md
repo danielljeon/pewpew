@@ -28,9 +28,10 @@ Automatic ranging catapult for university competition (software and firmware).
 
 ## 1 Overview
 
-![demo.gif](docs/demo.gif)
-
-- "Good enough" accuracy... lol.
+<div align="center">
+  <img src="docs/demo.gif" width="50%"><br>
+    "Good enough" accuracy... lol.
+</div>
 
 ### 1.1 Bill of Materials (BOM)
 
