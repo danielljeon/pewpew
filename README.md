@@ -1,5 +1,7 @@
 # pewpew
 
+![black_formatter](https://github.com/danielljeon/pewpew/actions/workflows/black_formatter.yaml/badge.svg)
+
 Automatic ranging catapult for university competition (software and firmware).
 
 - Ontario Tech University, Internal Engineering Competition (IEC) 2025, Senior
