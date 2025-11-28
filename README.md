@@ -74,11 +74,13 @@ To dynamically convert a target range value into a spring-tension or angle
 command, a one-dimensional linear regression (or higher-order polynomial fit) is
 calibrated.
 
-The `[main.py](main.py)` file can be run using a `.csv` dataset.
+The [main.py](main.py) file can be run using a `.csv` dataset generating an
+n-dimension curve fit equation, `matplotlib` graph and example `C`/`C++` Arduino
+code.
 
-The following shows an example python code execution with terminal inputs based
-on [data.csv](data.csv). Example `C`/`C++` Arduino code is generated with the
-created curve fit.
+The following shows example python code execution with terminal inputs based
+on [data.csv](data.csv). The related example `C`/`C++` Arduino code output is
+shown below:
 
 ```
 ##### Curve Fitting #####
